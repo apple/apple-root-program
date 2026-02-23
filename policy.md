@@ -236,7 +236,7 @@ Even if an operational standard permits incorporation by reference, this policy 
    * [CA/Browser Forum Public Discussion List](https://groups.google.com/a/groups.cabforum.org/g/public)
    * [CA/Browser Forum Server Certificate Working Group](https://groups.google.com/a/groups.cabforum.org/g/servercert-wg)
    * [CA/Browser Forum Validation Subcommittee](https://groups.google.com/a/groups.cabforum.org/g/validation)
-   * [CA/Browser Forum Networking Security Working Group](https://groups.google.com/a/groups.cabforum.org/g/netsec)
+   * [CA/Browser Forum Network Security Working Group](https://groups.google.com/a/groups.cabforum.org/g/netsec)
    * [CA/Browser Forum SMIME Certificate Working Group](https://groups.google.com/a/groups.cabforum.org/g/smcwg-public)
    * [CCADB Public Discussion List](https://groups.google.com/a/ccadb.org/g/public)
 * CA Owners MUST notify Apple if they anticipate any change in control or ownership of any CA Certificate (whether directly included or subordinate thereto).
@@ -599,7 +599,7 @@ Even if an operational standard permits incorporation by reference, this policy 
    * [CA/Browser Forum Public Discussion List](https://groups.google.com/a/groups.cabforum.org/g/public)
    * [CA/Browser Forum Server Certificate Working Group](https://groups.google.com/a/groups.cabforum.org/g/servercert-wg)
    * [CA/Browser Forum Validation Subcommittee](https://groups.google.com/a/groups.cabforum.org/g/validation)
-   * [CA/Browser Forum Networking Security Working Group](https://groups.google.com/a/groups.cabforum.org/g/netsec)
+   * [CA/Browser Forum Network Security Working Group](https://groups.google.com/a/groups.cabforum.org/g/netsec)
    * [CA/Browser Forum SMIME Certificate Working Group](https://groups.google.com/a/groups.cabforum.org/g/smcwg-public)
    * [CCADB Public Discussion List](https://groups.google.com/a/ccadb.org/g/public)
 * CA Owners MUST notify Apple if they anticipate any change in control or ownership of any CA Certificate (whether directly included or subordinate thereto).
