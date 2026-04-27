@@ -1,278 +1,396 @@
-# Apple Root Certificate Program
+# Apple Root Program Policy
 
-*Note*: This version comes into effect August 15, 2023.
+**Version 2.0**
 
-Apple uses public key infrastructure (PKI) to secure and enhance the experience for Apple users.
-Apple operating systems and applications (such as Safari and Mail) use a common store for root certificates; see <https://support.apple.com/kb/HT209143> and <https://support.apple.com/kb/HT212865>.
-Apple requires certification authority (CA) providers to meet certain criteria, as documented herein.
+**Effective TBD, 2026**
+
+## Introduction
+
+Apple uses public key infrastructure (PKI) to secure and enhance the experience of Apple users.
+Apple operating systems and applications (such as Safari and Mail) use a common store for Root CA Certificates; see [https://support.apple.com/103272](https://support.apple.com/103272) and [https://support.apple.com/103255](https://support.apple.com/103255).
+Apple requires certification authority (CA) Owners to meet certain criteria, as documented herein.
+
+*Note*: The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [BCP 14](https://www.rfc-editor.org/info/bcp14).
+
+## Definitions
+
+**Baseline Requirements**: Industry-standard requirements published by the CA/Browser Forum or other standards bodies that govern the issuance and management of publicly-trusted certificates.
+Specific Baseline Requirements applicable to each Trust Purpose are defined in [Appendix A](#appendix-a-trust-purposes).
+
+**CA Owner**: The organization or legal entity that is either represented in the subject DN of the CA certificate or in possession or control of the corresponding private key capable of issuing new certificates, if not the same organization or legal entity directly represented in the subject DN of the certificate.
+This definition includes CA Owners whose CA certificates are not directly included in this root program but chain to those that are.
+
+**Current Version**: For audit criteria, the version in effect at the beginning of the audit period. For other requirements, the version in effect at the time of assessment or compliance.
+
+**Detailed Controls Report (DCR)**: A report, or its equivalent for any audit framework, that documents a CA's controls and the auditor's procedures and results for testing those controls.
+The minimum required contents are specified in Section 1.2.3.1.
+
+**Externally Operated Subordinate CA**: An organization or legal entity that possesses and controls the private key of a subordinate CA, and is a distinct legal entity from the owner of the issuing parent CA.
+
+**Policy Document**: For the purposes of this document, this term refers to a Certificate Authority's Certificate Policy (CP), Certification Practice Statement (CPS), or a combined CP/CPS document.
+
+**Trust Purpose**: A designated use case for certificates as defined in [Appendix A](#appendix-a-trust-purposes), such as Server Authentication, Secure Email, or VMC.
+
+**VMC**: A Verified Mark Certificate (VMC) is an AuthIndicators Working Group–defined certificate for Brand Indicators for Message Identification (BIMI) that confirms an organization’s identity and its right to use a logo.
+
+## Table of Contents
+
+1. [Program Requirements](#1-program-requirements)
+   * [1.1 Audit Requirements](#11-audit-requirements)
+   * [1.2 Audit Engagement Requirements](#12-audit-engagement-requirements)
+   * [1.3 Standards and Policy Document Compliance Requirements](#13-standards-and-policy-document-compliance-requirements)
+   * [1.4 Communication Requirements](#14-communication-requirements)
+   * [1.5 Inclusion Requirements](#15-inclusion-requirements)
+   * [1.6 Due Diligence Requirements](#16-due-diligence-requirements)
+   * [1.7 Subordinate CA Requirements](#17-subordinate-ca-requirements)
+2. [Policy Requirements](#2-policy-requirements)
+   * [2.1 General](#21-general)
+   * [2.2 TLS Trust Purposes](#22-tls-trust-purposes)
+   * [2.3 S/MIME Trust Purposes](#23-smime-trust-purposes)
+   * [2.4 VMC Trust Purpose](#24-vmc-trust-purpose)
+3. [Incidents](#3-incidents)
+4. [Root Inclusion Submission Process](#4-root-inclusion-submission-process)
+5. [Root Program Management](#5-root-program-management)
+   * [5.1 Constraints](#51-constraints)
+
+[Appendix A: Trust Purposes](#appendix-a-trust-purposes)
+
+## Change Log
+
+| Version | Date | Change Description |
+| :------ | :--- | :----------------- |
+| 2.0 | 2026-MM-DD | Restructured policy with versioning, formal definitions, and Appendix A formalizing Trust Purposes (including new VMC, Legacy TLS, and Legacy S/MIME). Separated SSL Baseline and Network Security audit criteria; added VMC and S/MIME Network Security audits. Expanded Detailed Controls Report with attestation requirements (effective 2027-07-01). Required Markdown CP/CPS format with single trust purpose scoping (effective 2027-07-01). Required single-purpose Subordinate CAs signed on or after 2026-07-01. Required minimum RSA 4096-bit or ECDSA 384-bit for new root inclusions. Added S/MIME SAN requirement permitting id-on-SmtpUTF8Mailbox (effective 2027-02-01). Added pre-approval for Externally Operated Subordinate CAs, due diligence response requirements, and conflict resolution clause. Streamlined firm/auditor qualifications, CRL disclosure, and incident reporting to reference CCADB Policy. |
+| 1.0 | 2023-08-15 | Last version before versioning was introduced |
 
 ## 1. Program Requirements
 
 ### 1.1 Audit Requirements
 
-CA providers may fall into one or more of the below categories and must meet the obligations related to all certificate purposes for which they are enabled within the Apple Root Program.
+CA Owners MUST meet the audit obligations for all Trust Purposes (as defined in Appendix A) for which they are enabled within the Apple Root Program.
 
-CA providers must provide audit reports in the Common CA Database (CCADB).
+CA Owners MUST provide audit reports in the Common CA Database (CCADB).
 
-*Note*: The presence of qualifications in an audit report is not, by itself, considered reason to remove a CA provider from the Apple Root Program.
-The purpose of audits is to honestly and thoroughly assess a CA provider's compliance with requirements which are necessary to assure a secure and stable ecosystem.
-Audit findings, including qualifications, can help to identify opportunities for improvement, whether for individual CA providers or for the wider industry as a whole.
+*Note*: The presence of qualifications in an audit report is not, by itself, considered reason to remove a CA Owner from the Apple Root Program. The purpose of audits is to honestly and thoroughly assess a CA Owner's compliance with requirements which are necessary to assure a secure and stable ecosystem. Audit findings, including qualifications, can help to identify opportunities for improvement, whether for individual CA Owners or for the wider industry as a whole.
 
-#### 1.1.1 All CA Providers
+All CAs MUST be audited at least annually against the Current Version (and MAY use a newer version if effective during the audit period) of at least one of the below:
 
-CA providers must ensure their CAs are audited against the current version of at least one of the below criteria at least annually:
-*   (Preferred) "WebTrust Principles and Criteria for Certification Authorities"
-*   (Accepted on a case-by-case basis) "ETSI EN 319 411-1" LCP, NCP, or NCP+
+* WebTrust (Preferred)
+  * "WebTrust Principles and Criteria for Certification Authorities"
+* ETSI (Accepted on a case-by-case basis)
+  * "ETSI EN 319 411-1" LCP, NCP, or NCP+
 
-#### 1.1.2 TLS CA Providers
+The audit engagement MUST also assess the CA's compliance with any requirements from newer versions of the criteria that took effect during the audit period.
+The CA's compliance with such new requirements MUST be assessed from the effective date of the requirement through the end of the audit period.
 
-CA providers must ensure their Transport Layer Security (TLS) enabled root CAs and all subordinate CAs capable of issuing TLS certificates are audited against the current version of at least one of the below sets of criteria at least annually:
+#### 1.1.1 TLS CA Owners
 
-*   (Preferred) "WebTrust Principles and Criteria for Certification Authorities" and "WebTrust Principles and Criteria for Certification Authorities -- SSL Baseline with Network Security"
-*   (Accepted on a case-by-case basis) "ETSI EN 319 411-1" LCP and (DVCP or OVCP)
-*   (Accepted on a case-by-case basis) "ETSI EN 319 411-1" NCP and EVCP
+CAs capable of issuing TLS certificates (i.e. contain id-kp-serverAuth EKU with non-EV Policy OID) MUST be audited at least annually against the Current Version (and MAY use a newer version if effective during the audit period) of at least one of the below sets of criteria:
 
-#### 1.1.3 EV TLS CA Providers
+* WebTrust
+  * Preferred:
+    * "WebTrust Principles and Criteria for Certification Authorities";
+    * "WebTrust Principles and Criteria for Certification Authorities - SSL Baseline"; and
+    * "WebTrust Principles and Criteria for Certification Authorities - Network Security"
+  * Accepted:
+    * "WebTrust Principles and Criteria for Certification Authorities"; and
+    * "WebTrust Principles and Criteria for Certification Authorities - SSL Baseline with Network Security"
+* ETSI (Accepted on a case-by-case basis)
+  * "ETSI EN 319 411-1" LCP and (DVCP or OVCP); or
+  * "ETSI EN 319 411-1" NCP and EVCP
 
-CA providers must ensure their Extended Validation (EV) enabled root CAs and all subordinate CAs capable of issuing EV TLS certificates are audited against the current version of at least one of the below sets of criteria at least annually:
+#### 1.1.2 EV TLS CA Owners
 
-*   (Preferred) "WebTrust Principles and Criteria for Certification Authorities", "WebTrust Principles and Criteria for Certification Authorities -- SSL Baseline with Network Security", and "WebTrust Principles and Criteria for Certification Authorities -- Extended Validation SSL"
-*   (Accepted on a case-by-case basis) "ETSI EN 319 411-1 NCP" and EVCP
+CAs capable of issuing EV TLS (i.e. contain id-kp-serverAuth EKU with EV Policy OID) certificates MUST be audited at least annually against the Current Version (and MAY use a newer version if effective during the audit period) of at least one of the below sets of criteria:
 
-#### 1.1.4 S/MIME CA Providers
+* WebTrust (Preferred)
+  * Preferred:
+    * "WebTrust Principles and Criteria for Certification Authorities";
+    * "WebTrust Principles and Criteria for Certification Authorities - SSL Baseline";
+    * "WebTrust Principles and Criteria for Certification Authorities - Network Security"; and
+    * "WebTrust Principles and Criteria for Certification Authorities - Extended Validation SSL"
+  * Accepted:
+    * "WebTrust Principles and Criteria for Certification Authorities";
+    * "WebTrust Principles and Criteria for Certification Authorities - SSL Baseline with Network Security"; and
+    * "WebTrust Principles and Criteria for Certification Authorities - Extended Validation SSL"
+* ETSI (Accepted on a case-by-case basis)
+  * "ETSI EN 319 411-1" NCP and EVCP
 
-Effective December 1, 2024, CA providers must ensure their S/MIME enabled root CAs and all subordinate CAs capable of issuing S/MIME certificates **have been** and will continue to be audited against the current version of at least one of the below sets of criteria at least annually:
+#### 1.1.3 S/MIME CA Owners
 
-*   (Preferred) "WebTrust Principles and Criteria for Certification Authorities" and "WebTrust Principles and Criteria for Certification Authorities -- S/MIME"
-*   (Accepted on a case-by-case basis) "ETSI TS 119 411-6" LCP, NCP, or NCP+
+CAs capable of issuing S/MIME certificates (i.e. contain id-kp-emailProtection EKU) MUST be audited at least annually against the Current Version (and MAY use a newer version if effective during the audit period) of at least one of the below sets of criteria:
 
-To further clarify expectations:
+* WebTrust (Preferred)
+  * "WebTrust Principles and Criteria for Certification Authorities";
+  * "WebTrust Principles and Criteria for Certification Authorities - Network Security"; and
+  * "WebTrust Principles and Criteria for Certification Authorities - S/MIME"
+* ETSI (Accepted on a case-by-case basis)
+  * "ETSI TS 119 411-6" LCP, NCP, or NCP+
 
-*   An initial audit period must begin no later than September 1, 2023.
-*   An initial audit period must begin no earlier than the effective date of a CA provider's published CP/CPS which confirms the CA provider's compliance with the current version of the CA/Browser Forum Baseline Requirements for the Issuance and Management of Publicly-Trusted S/MIME Certificates.
-*   An initial audit period must end no later than September 1, 2024.
-*   The initial audit period must include a minimum of 60 days.
-*   A complete period-of-time audit report must be published no later than December 1, 2024.
-    *   Where applicable, CA providers must not delay their S/MIME audit beyond the audit cycle established for their other, extant CAs in the Apple Root Program.
-*   Beginning September 1, 2023, S/MIME CA providers must deliver contiguous audit reports annually.
-    *   In order to align audit periods following this initial audit period, S/MIME CA providers may adjust audit periods as desired, which may result in overlap between the initial audit period and future audit periods.
+#### 1.1.4 VMC CA Owners
 
-*Note*: Apple expects its S/MIME CA providers to be proactively seeking to comply with the CA/Browser Forum Baseline Requirements for the Issuance and Management of Publicly-Trusted S/MIME Certificates.
-In order to ensure minimal disruption to currently included S/MIME CA providers, and in order to enable uninterrupted issuance of S/MIME certificates by these CA providers as the S/MIME Baseline Requirements come into effect, Apple expects audits to be conducted sufficiently early in the lifecycle of the Requirements to provide confidence that pre-existing CA providers have successfully transitioned their S/MIME CA systems into a compliant state.
+CAs capable of issuing VMC certificates (i.e. contain BrandIndicatorforMessageIdentification EKU) MUST be audited at least annually against the Current Version (and MAY use a newer version if effective during the audit period) of at least one of the below sets of criteria:
+
+* WebTrust
+  * "WebTrust Principles and Criteria for Certification Authorities";
+  * "WebTrust Principles and Criteria for Certification Authorities - Network Security"; and
+  * "WebTrust Principles and Criteria for Certification Authorities - Verified Mark Certificates"
 
 #### 1.1.5 Lifecycle Event Reporting
 
-CA providers must ensure all keys intended for use in a CA Certificate are included in lifecycle reports as part of their annual auditing procedures.
-When Lifecycle Events have occurred during an audit period, they must be addressed either in:
+CA Owners MUST ensure all keys intended for use in a CA Certificate are included in lifecycle reports as part of their annual auditing procedures. When Lifecycle Events have occurred during an audit period, they MUST be addressed either in:
 
-*   the annual audit report(s) supplied to the Apple Root Program; or
-*   separate reports supplied to the Apple Root Program within 90 days of the Event concluding.
+* the annual audit report(s) supplied to the Apple Root Program; or
+* separate reports supplied to the Apple Root Program within 90 calendar days of the Event concluding.
 
-Such reporting must minimally cover the following Lifecycle Events:
+Such reporting MUST minimally cover the following Lifecycle Events:
 
-*   for keys intended for use in a Root CA Certificate and keys intended for use in a CA Certificate not operated by the CA provider:
-    *   Key Generation Ceremony
-*   for keys intended for use in a CA Certificate:
-    *   Key Backup, Storage, and Recovery
-    *   Key Transport
-    *   Key Destruction
+* for keys intended for use in a Root CA Certificate and keys intended for use by an Externally Operated Subordinate CA:
+  * Key Generation Ceremony
+* for keys intended for use in a CA Certificate:
+  * Key Backup, Storage, and Recovery
+  * Key Transport
+  * Key Destruction
 
 ### 1.2 Audit Engagement Requirements
 
 #### 1.2.1 Auditor Annual Training
 
-CA providers must ensure auditors involved in external audit engagements undergo and/or have undergone annual training specific to the subject matter assessed within the Audit Criteria outlined in section 1.1.
+CA Owners MUST ensure auditors involved in external audit engagements undergo and/or have undergone annual training specific to the subject matter assessed within the Audit Criteria outlined in [Section 1.1](#11-audit-requirements).
 
-*Note*: CA providers and auditors are encouraged to reach out to the Apple Root Program with questions and for recommendations.
+*Note*: CA Owners and auditors are encouraged to reach out to the Apple Root Program with questions and for recommendations.
 By way of example, if the auditor has undergone training to review the changes made to the Audit Criteria they're assessing, that would meet this requirement.
-CA providers are not required to share with Apple the evidence used to verify Auditor Annual Training compliance.
+CA Owners are not required to share with Apple the evidence used to verify Auditor Annual Training compliance.
 
 #### 1.2.2 Firm and Auditor Qualifications
 
-CA providers must ensure audits used to comply with this policy are performed by entities licensed or otherwise permitted to provide assurance services in the country(ies) where the assessment is performed, for the entirety of the audit engagement's duration.
+CA Owners MUST ensure audits comply with the firm and auditor qualification requirements specified in CCADB Policy.
 
-*Note*: CA providers are not required to share with Apple the evidence used to verify Firm and Auditor Qualifications meet these requirements.
-*   WebTrust
-    *   Firms must:
-        *   be enrolled in the WebTrust Program (managed by CPA Canada);
-        *   be registered as a legal entity in good standing;
-        *   be registered as an accountancy or auditing firm in good standing with a corresponding national accounting body, which is a member of IFAC; and
-        *   have no outstanding legal or professional indicators that an audit could not be performed.
-    *   Signing Partners and QA Partners must:
-        *   be members in good standing with a national accounting body, which is a member of IFAC;
-        *   have experience in the entire process of Certification Authority assessment; and
-        *   have up-to-date knowledge in Public Key Infrastructure, Information Security Management, and management system assessment.
-    *   Field staff should be members in good standing with a national accounting body, which is a member of IFAC and must:
-        *   maintain IT specialist certification (e.g., CISA, CISM, etc.); and
-        *   be familiar with the requirements established by the CA/Browser Forum and the WebTrust Principles and Criteria associated with the assessment being performed.
-*   ETSI
-    *   Conformity Assessment Bodies must be accredited for the certification of trust services according to:
-        *   "EN ISO/IEC 17065\"; and
-        *   "ETSI EN 319 403 V2.2.2 (2015-08)" or "ETSI EN 319 403-1 V.2.3.1 (2020-06)" or later.
-    *   Audits must be performed and audit reports written taking into consideration:
-        *   "ETSI TS 119 403-2 V1.2.4 (2020-11)" or later; and
-        *   requirements established by the CA/Browser Forum associated with the assessment being performed.
-    *   Auditors and all personnel performing audits, reviews, or certification decisions must be:
-        *   registered members of the Conformity Assessment Body in their specific role; and
-        *   familiar with the requirements established by the CA/Browser Forum associated with the assessment being performed.
+*Note*: Audit statements MUST include auditor qualification documentation as required by CCADB Policy.
 
 #### 1.2.3 Additional Requirements or Obligations
 
-*   Apple reserves the right to require a CA provider to complete additional audit engagements.
-*   Apple reserves the right to appoint or reject an auditor for a CA provider.
-*   Apple reserves the right to require a detailed controls report from a CA provider.
-    *   A detailed controls report provides a thorough description of a CA provider's certification authority system and design as well as their implementation and operating effectiveness of PKI controls.
-    *   A detailed controls report may be a single report or a collection of artifacts which together provide the requisite information.
+Apple reserves the right to require a CA Owner to complete additional audit engagements, appoint or reject an auditor, or require submission of a detailed controls report to Apple.
 
-*Note*: Due to how audit engagements are structured, additional audit engagements, the appointment or rejection of an auditor, and a detailed controls report are actions that would typically apply to a future audit.
+#### 1.2.3.1 Detailed Controls Report
+
+A Detailed Controls Report documents a CA Owner's certification authority system and the design and operating effectiveness of its controls. 
+For any audit framework (e.g., WebTrust, ETSI), the Detailed Controls Report, or its equivalent, MUST, at a minimum, contain the following core elements for each tested requirement:
+
+1. The specific requirement or criterion being assessed.
+2. The CA Owner's control(s) that address the requirement.
+3. The auditor's test procedures used to evaluate the control(s).
+4. The results of the auditor's tests.
+
+The Detailed Controls Report MAY be a single, consolidated document covering all audit criteria applicable to the CA Owner for the audit period (e.g., WebTrust for CA, SSL Baseline, and Network Security).
+
+
+Effective for audit periods starting on or after 2027-07-01, the CA Owner MUST:
+
+1. Ensure the auditor produces a report containing these core elements.
+2. Ensure the auditor contract allows for the Detailed Controls Report to be shared with Apple.
+3. Review the report before attestation letter finalization.
+4. Provide written attestation to Apple by adding a Case Comment to the 'CASE PROGRESS' tab of the CCADB "Add/Update Root Request" case for that audit confirming review and accuracy of the Detailed Controls Report.
+
+Apple MAY require the CA Owner to provide Apple with a copy of each recent detailed controls report.
+When requested, the CA Owner MUST provide them to Apple within 30 calendar days.
+Apple will treat any detailed controls report provided to Apple as confidential and will not disclose it to third parties except as required by law.
+
+CA Owners must ensure the Detailed Controls Report includes enough detail to explain the basis for the auditor's findings, while excluding information restricted by privacy laws.
 
 #### 1.2.4 Incidents
 
-CA providers must ensure that audit reports include information regarding all incidents, as described and defined below under Section 3 "Incidents" and as required by section 5.1 of the CCADB Policy (<https://www.ccadb.org/policy>).
+CA Owners MUST ensure audit reports include incident information as required by the [CCADB Policy](https://www.ccadb.org/policy).
 
 ### 1.3 Standards and Policy Document Compliance Requirements
 
-#### 1.3.1 All CA Providers
+CA Owners MUST strictly adhere to:
 
-CA providers must strictly adhere to their Certificate Policy (CP) and/or Certification Practices Statement (CPS) document(s) as disclosed within the CCADB (and not marked as "Deleted").
+* the Current Version of the [CCADB Policy](https://www.ccadb.org/policy), including but not limited to:
+  * Annual self-assessment requirements;
+  * Cross-certificate EKU requirements;
+  * CRL disclosure and availability requirements;
+  * Incident reporting guidelines;
+  * Audit statement content requirements;
+  * Firm and auditor qualification requirements;
+* their Policy Documents as disclosed in the CCADB; and
+* the Baseline Requirements specified in Appendix A for their designated Trust Purpose(s).
 
-*Note*: This extends to all policy documents the CA provider publishes in relation to its CAs included in the Apple Root Program, such as TSPS documents.
+When new versions of the [CCADB Policy](https://www.ccadb.org/policy) are published without a future Effective Date, CA Owners MUST adhere to the new version within 14 calendar days of its publication.
 
-CA providers must strictly adhere to the current version of the CCADB Policy (<https://www.ccadb.org/policy>).
+**Conflict Resolution:**
+Where this policy imposes requirements that are more restrictive than CCADB Policy or applicable Baseline Requirements (such as minimum key sizes for new root inclusions, required domain validation methods, or CP/CPS formatting), CA Owners MUST comply with the more restrictive requirement.
 
-#### 1.3.2 TLS CA Providers
+CA Owners uncertain about which requirement applies should contact the Apple Root Program for clarification before taking action.
 
-TLS CA providers must constantly maintain compliance with the current version of the CA/Browser Forum Baseline Requirements Certificate Policy for the Issuance and Management of Publicly-Trusted Certificates (TLS Baseline Requirements).
+#### 1.3.1 Policy Document Requirements
 
-TLS CA providers must incorporate and commit to compliance with the current version of the CA/Browser Forum's Baseline Requirements in their CP and/or CPS documents.
+CA Owners MUST incorporate and commit to compliance with the Baseline Requirements applicable to their designated Trust Purpose(s) in their CP/CPS document.
 
-#### 1.3.3 EV TLS CA Providers
+Effective 2027-07-01, all Policy Documents MUST adhere to the following:
 
-EV TLS CA providers must constantly maintain compliance with the current version of the CA/Browser Forum Guidelines For The Issuance And Management Of Extended Validation Certificates (EV Guidelines).
+1. **Format:** Documents MUST be a combined Certificate Policy and Certification Practice Statement (CP/CPS) in MarkDown format with .md file extension.
+The Markdown file is the authoritative version in CCADB.
+CA Owners MAY publish additional formats for convenience.
 
-EV TLS CA providers must incorporate and commit to compliance with the current version of the CA/Browser Forum's EV Guidelines in their CP and/or CPS documents.
+2. **Content Integrity:** Each CP/CPS document MUST be self-contained with respect to the CA Owner's specific practices and procedures.
+Policy Documents MUST describe the specific processes and controls used to meet requirements, not simply state that requirements are met.
+Incorporation by reference is permitted to cite the source of a requirement, but it MUST NOT be used as a substitute for describing the CA's corresponding practice.
 
-#### 1.3.4 S/MIME CA Providers
+3. **Trust Purpose Scoping:**
 
-Effective September 1, 2023, S/MIME CA providers must constantly maintain compliance with the current version of the CA/Browser Forum Baseline Requirements for the Issuance and Management of Publicly-Trusted S/MIME Certificates (S/MIME Baseline Requirements).
-
-*Note*: This also requires that end-entity S/MIME certificates must be issued from a CA Certificate compliant with the S/MIME Baseline Requirements.
-
-Effective September 1, 2023, S/MIME CA providers must incorporate and commit to compliance with the current version of the CA/Browser Forum's S/MIME Baseline Requirements in their CP and/or CPS documents.
+   * Each CP/CPS document MUST be scoped to a single Trust Purpose (as defined in Appendix A).
+   * The Trust Purpose and required EKU(s) MUST be stated in Section 1.4 of the CP/CPS.
+   * A Root CA Certificate hierarchy supporting multiple Trust Purposes MUST provide a distinct CP/CPS document for each Trust Purpose.
+   * Multiple Root CA Certificate hierarchies MAY reference the same CP/CPS document if they share the same Trust Purpose.
+   * For certificates/hierarchies that do not align to an Apple-recognized Trust Purpose, at least one CP/CPS is required to cover each or all of those purposes.
 
 ### 1.4 Communication Requirements
 
-*   CA providers must maintain up to date contact details in the CCADB.
-*   CA providers are accountable for keeping up to date on discussions in and implementing any changes necessary to conform with changes communicated via the following:
-    *   CA communications from Apple (typically via CCADB)
-    *   CA/Browser Forum Public Discussion List (<https://lists.cabforum.org/mailman/listinfo/public>)
-    *   CA/Browser Forum Server Certificate Working Group (<https://lists.cabforum.org/mailman/listinfo/servercert-wg>)
-    *   CA/Browser Forum Validation Subcommittee (<https://lists.cabforum.org/mailman/listinfo/validation>)
-    *   CA/Browser Forum Networking Security Working Group (<https://lists.cabforum.org/mailman/listinfo/netsec>)
-    *   CA/Browser Forum SMIME Certificate Working Group (<https://lists.cabforum.org/mailman/listinfo/smcwg-public>)
-    *   CCADB Public Discussion List (<https://groups.google.com/a/ccadb.org/g/public>)
-*   CA providers must notify Apple if they anticipate any change in control or ownership of any CA Certificate (whether directly included or subordinate thereto).
-    Inclusion is not transferable without prior approval by Apple.
+* CA Owners MUST maintain up to date contact details in the CCADB.
+* CA Owners are accountable for keeping up to date on discussions in and implementing any changes necessary to conform with changes communicated via the following (where applicable):
+   * CA communications from Apple (typically via CCADB)
+   * [CA/Browser Forum Public Discussion List](https://groups.google.com/a/groups.cabforum.org/g/public)
+   * [CA/Browser Forum Server Certificate Working Group](https://groups.google.com/a/groups.cabforum.org/g/servercert-wg)
+   * [CA/Browser Forum Validation Subcommittee](https://groups.google.com/a/groups.cabforum.org/g/validation)
+   * [CA/Browser Forum Network Security Working Group](https://groups.google.com/a/groups.cabforum.org/g/netsec)
+   * [CA/Browser Forum SMIME Certificate Working Group](https://groups.google.com/a/groups.cabforum.org/g/smcwg-public)
+   * [CCADB Public Discussion List](https://groups.google.com/a/ccadb.org/g/public)
+* CA Owners MUST notify Apple if they anticipate any change in control or ownership of any CA Certificate (whether directly included or subordinate thereto).
+    The acquiring CA MUST disclose its ownership, jurisdiction, continuity of audits with independent WebTrust/ETSI auditor confirmation that all evidence since root signing is retained, and its plans for managing legacy roots and key material.
+    Continued inclusion requires Apple approval and is not transferable.
+* CA Owners MUST receive approval from Apple prior to issuing each Subordinate CA Certificate (or cross-signed certificate) to an Externally Operated Subordinate CA.
+* CA Owners MUST respond to requests from Apple within the timeframe specified in the communication, or within 14 calendar days if unspecified.
 
 ### 1.5 Inclusion Requirements
-*   CA providers applying for inclusion in the Apple Root Program are expected to meet all applicable Program and Policy requirements prior to submitting an application.
-*   CA providers must strictly limit the number of Root CA Certificates per CA provider, especially those capable of issuing multiple types of certificates.
-*   CA providers and their Root CA Certificates must provide broad value to Apple's users.
-*   CA providers must complete all fields required in the CCADB Root Inclusion Request Case.
+
+* CA Owners and their Root CA Certificates MUST provide broad value to Apple's users.
+* CA Owners applying for inclusion in the Apple Root Program are expected to meet all applicable Program and Policy requirements prior to submitting an application.
+* CA Owners MUST strictly limit the number of Root CA Certificates per CA Owner, especially those capable of issuing multiple types of certificates.
+* CA Owners MUST complete all fields required in the CCADB Root Inclusion Request Case.
+* Root Inclusion Requests will only be accepted for Root CA hierarchies dedicated to a single Trust Purpose (as defined in Appendix A) with a single combined CP/CPS document in MarkDown format (.md file extension).
+* Root Inclusion Requests MUST only contain Root CA Certificates which have a minimum key size of RSA 4096-bit or ECDSA 384-bit.
+
+### 1.6 Due Diligence Requirements
+
+The Apple Root Program reserves the right to require additional clarifying information to resolve ambiguities that arise during routine due diligence.
+These requests will be communicated to the CA Email Alias(es) present in CCADB with a subject that includes "Due Diligence Request".
+CA Owners MUST respond to such requests within 14 calendar days.
+If a CA Owner requires additional time, they MUST notify Apple within the initial 14-day period with an estimated completion date and get Apple approval for the extension.
+
+### 1.7 Subordinate CA Requirements
+
+Subordinate CA Certificates signed after 2026-07-01 MUST be dedicated to a single Trust Purpose as defined in [Appendix A](#appendix-a-trust-purposes), regardless of whether the hierarchy supports multiple Trust Purposes.
+
+*Note*: This requirement is consistent with and may overlap with requirements in applicable CA/Browser Forum Baseline Requirements.
 
 ## 2. Policy Requirements
 
-*Note*: For effective dates related to certificate issuance, the requirement is enforced for certificates issued on or after the specified date at 00:00:00 UTC.
+*Note*: For effective dates related to certificate issuance, the requirement is enforced for certificates signed on or after the specified date at 00:00:00 UTC.
 
 ### 2.1 General
 
-*   CA providers should be aware that issuance of a precertificate or certificate chaining up to an included CA Certificate constitutes authorization by the CA provider for that certificate.
-*   CA providers should be aware that participation in the Apple Root Program as a CA provider constitutes a Root Certificate distribution agreement, as referenced in Section 9.9 of the TLS Baseline Requirements, between CA providers and Apple.
+* Root CA Owners SHOULD be aware that issuance of a precertificate or certificate chaining up to an included CA Certificate constitutes authorization by the Root CA Owner for that certificate.
+* Root CA Owners SHOULD be aware that participation in the Apple Root Program constitutes a Root Certificate distribution agreement, as referenced in Section 9.9 of the TLS Baseline Requirements or S/MIME Baseline Requirements, between the Root CA Owner and Apple.
 
 #### 2.1.1 CA Disclosure
 
-Effective April 1, 2022, CA providers must disclose in the CCADB all CA Certificates which chain up to their CA Certificate(s) included in the Apple Root Program.
+CA Owners MUST disclose all CA Certificates in the CCADB as required by the CCADB Policy, including the requirement that CRL URLs be available for successful retrieval every 4 hours under normal operating conditions.
 
-#### 2.1.2 Full CRLs
+*Note*: CA Certificates not disclosed in the CCADB MAY not function on Apple Devices.
+It is RECOMMENDED that CA Owners disclose CA Certificates in the CCADB at least 14 calendar days before beginning to issue from the CA Certificate.
 
-Effective October 1, 2022, CA providers must populate the CCADB fields under "Pertaining to Certificates Issued by This CA" with either the CRL Distribution Point for the "Full CRL Issued By This CA" or a "JSON Array of Partitioned CRLs" on Root and Intermediate Certificate records, within 7 days of the corresponding CA issuing its first certificate.
-This requirement applies to each included CA Certificate and each CA Certificate chaining up to an included CA Certificate in the Apple Root Program.
+#### 2.1.2 CRLs
 
-*   When populating the "JSON Array of Partitioned CRLs" with multiple CRL URLs, CA providers must ensure that each CRL contains a critical Issuing Distribution Point extension and the distributionPoint field of the extension must include a UniformResourceIdentifier.
-    *   The value of the UniformResourceIdentifier must exactly match a URL, from which the CRL was accessed, present in the "JSON Array of Partitioned CRLs" field in the CCADB record associated with the Issuing CA Certificate.
-*   When populating the "Full CRL Issued By This CA" with a single CRL URL, the CRL should not contain an Issuing Distribution Point extension.
-*   Under normal operating conditions, the CRL URLs provided by CAs in this section must be available such that Apple systems are able to successfully retrieve the current CRL every 4 hours.
+CA Owners MUST populate CRL information in the CCADB as required by the CCADB Policy.
 
-#### 2.1.3 Single-purpose Root CAs
+#### 2.1.3 Single-Purpose Root CAs
 
-Effective April 15, 2024, all CA providers applying to the Apple Root Program must submit only Root CA Certificates dedicated to a single purpose.
-Valid certificate purposes are:
+CA Owners applying to the Apple Root Program MUST submit only Root CA Certificates dedicated to a single Trust Purpose as defined in [Appendix A](#appendix-a-trust-purposes).
+All Subordinate CA Certificates in these hierarchies MUST contain only the EKU(s) specified in [Appendix A](#appendix-a-trust-purposes) for the designated Trust Purpose.
 
-*   TLS
-    *   All CA Certificates subordinate to the applicant Root CA Certificate must
-        *   contain the `extendedKeyUsage` extension which must contain only
-            *   the `id-kp-serverAuth` OID; or
-            *   the `id-kp-serverAuth` OID and the `id-kp-clientAuth` OID; and
-        *   not contain the same public key as any other certificate which asserts any other `extendedKeyUsage` OIDs.
-*   S/MIME
-    *   All CA Certificates subordinate to the applicant Root CA Certificate must
-        *   contain the `extendedKeyUsage` extension and the `extendedKeyUsage` extension must contain only
-            *   the `id-kp-emailProtection` OID; or
-            *   the `id-kp-emailProtection` OID and the `id-kp-clientAuth` OID; and
-        *   not contain the same public key as any other certificate which asserts any other `extendedKeyUsage` OIDs.
-*   Client Authentication
-    *   All CA Certificates subordinate to the applicant Root CA Certificate must
-        *   contain the `extendedKeyUsage` extension, and the `extendedKeyUsage` extension must contain the `id-kp-clientAuth` OID, and the `extendedKeyUsage` extension must not contain:
-            *   the `id-kp-serverAuth` OID;
-            *   the `id-kp-emailProtection` OID; nor
-            *   the `id-kp-timeStamping` OID; and
-        *   not contain the same public key as any other certificate which asserts any other `extendedKeyUsage` OIDs.
-*   Timestamping
-    *   All CA Certificates subordinate to the applicant Root CA Certificate must
-        *   contain the `extendedKeyUsage` extension and the `extendedKeyUsage` extension must contain only the `id-kp-timeStamping` OID; and
-        *   not contain the same public key as any other certificate which asserts any other `extendedKeyUsage` OIDs.
+*Note*: Root CA Certificates included before this policy version that support multiple Trust Purposes MAY continue operating.
+Apple reserves the right to require transition to single-purpose operation.
 
-*Note*: In a future version of the Apple Root Program Policy, it is expected that already-included Root CA Certificates which do not comply with the above guidance will be removed from the Apple Root Program.
+### 2.2 TLS Trust Purposes
 
-### 2.2 TLS
+For Server Authentication and Legacy TLS Trust Purposes:
 
-*   Effective August 15, 2024, TLS CA providers must support at least one of the following domain validation methods from the TLS Baseline Requirements:
-    *   3.2.2.4.7 DNS Change
-    *   3.2.2.4.18 Agreed-Upon Change to Website v2
-    *   3.2.2.4.19 Agreed-Upon Change to Website - ACME
-    *   3.2.2.4.20 TLS Using ALPN
+CA Owners MUST support at least one of the following domain validation methods from the TLS Baseline Requirements:
+* 3.2.2.4.7 DNS Change
+* 3.2.2.4.18 Agreed-Upon Change to Website v2
+* 3.2.2.4.19 Agreed-Upon Change to Website - ACME
+* 3.2.2.4.20 TLS Using ALPN
 
-### 2.3 S/MIME
+*Note*: TLS subscriber certificates MUST comply with the [Apple Certificate Transparency Policy](https://support.apple.com/en-us/103214) to be accepted for connection establishment on Apple devices.
 
-*   Effective April 1, 2022, S/MIME certificates must:
-    *   include the `emailProtection` EKU
-    *   include at least one subjectAlternativeName `rFC822Name` value containing an email address
-    *   not have a validity period greater than 1185 days
-    *   use a signature hash algorithm of greater than or equal strength to SHA-256 (see section 7.1.3.1 and 7.1.3.2 of the CA/B Forum's TLS Baseline Requirements).
-    *   meet the following key size requirements:
-        *   For RSA key pairs, the modulus size must be at least 2048 bits when encoded and its size in bits must be evenly divisible by 8.
-        *   For ECDSA key pairs, the key must represent a valid point on the NIST P-256, NIST P-384 or NIST P-521 named elliptic curve.
+### 2.3 S/MIME Trust Purposes
+
+For Secure Email and Legacy S/MIME Trust Purposes:
+
+Effective 2027-02-01, all newly signed Subscriber certificates that contain the id-kp-emailProtection EKU MUST include at least one rfc822Name or one otherName of type id-on-SmtpUTF8Mailbox in the subjectAltName extension.
+
+### 2.4 VMC Trust Purpose
+
+For the VMC Trust Purpose:
+
+Apple supports subject:markType set to either Registered Mark (validated through a Mark Certificate) or Government Mark (validated through government authorization).
 
 ## 3. Incidents
 
-Failure to comply with the above requirements in any way is considered an incident.
-CA providers must report such incidents to the Apple Root Program at <certificate-authority-program@apple.com> with a full incident report.
-This report can be shared directly or as a link from a public disclosure (e.g. Bugzilla).
+Failure to comply with this policy in any way is considered an incident.
+CA Owners MUST follow the [CCADB Incident Reporting Guidelines](https://www.ccadb.org/cas/incident-report) for all incidents.
 
-Of paramount importance for CA providers when submitting incident reports and participating in all follow-up discussion are:
+## 4. Root Inclusion Submission Process
 
-*   a demonstration of quality in investigation and depth of knowledge in the root cause analysis, including analyzing for variants;
-*   timeliness and transparency in responding to questions; and
-*   thoroughness and specificity in the identification and implementation of remediation tasks.
+To begin the submission process, [request access](https://www.ccadb.org/cas/request-access) to the CCADB and create a [Root Inclusion Request Case](https://www.ccadb.org/cas/inclusion) in the CCADB.
+Once all minimum requirements are met, submit the Root Inclusion Request case in CCADB.
+CA Owners will be contacted if any additional information is required, and when consideration of the Root Inclusion Request is complete.
+For more information on the CCADB, please see [https://www.ccadb.org/cas](https://www.ccadb.org/cas).
 
-## 4. Submission Process
+## 5. Root Program Management
 
-To begin the submission process, request access to the CCADB and create a Root Inclusion Request Case in the CCADB.
-Once complete, e-mail <certificate-authority-program@apple.com> with the details of your Root Inclusion Request Case.
-CA providers will be contacted if any additional information is required, and when consideration of the Root Inclusion Request is complete.
-For more information on the CCADB, please see [https://www.ccadb.org/cas](https://www.ccadb.org/cas/).
-
-## 5. Root Acceptance
-
-Apple accepts and removes Root CA Certificates and CA providers as it deems appropriate at its sole discretion.
+Apple accepts and removes Root CA Certificates and CA Owners as it deems appropriate at its sole discretion.
 Apple prioritizes Root Inclusion Requests as it deems appropriate at its sole discretion.
+
+### 5.1 Constraints
+
+The Apple Root Program MAY apply additional constraints to CA Certificates and their hierarchies under exceptional circumstances.
+These constraints MAY include, but are not limited to, any of the following:
+
+* leaf certificates signed before, after, or between configured date(s) will not validate
+* the maximum allowed validity period for leaf certificates is constrained
+* the set of policy OIDs asserted in leaf certificates is constrained to a subset of the policy OIDs otherwise allowed for the CA Certificate's designated Trust Purpose
+* the domain names and/or top-level domains for which leaf certificates will validate is constrained to a subset of what is otherwise allowed for the CA Certificate's designated Trust Purpose
+
+## Appendix A: Trust Purposes
+
+The Apple Root Program recognizes the following Trust Purposes:
+
+| Trust Purpose | Required EKU(s) | Baseline Requirements |
+|---------------|-----------------|----------------------|
+| Server Authentication | id-kp-serverAuth (1.3.6.1.5.5.7.3.1) | TLS BR<BR>EV Guidelines (when issuing EV) |
+| Legacy TLS | id-kp-serverAuth (1.3.6.1.5.5.7.3.1)<br>id-kp-clientAuth (1.3.6.1.5.5.7.3.2) | TLS BR<BR>EV Guidelines (when issuing EV) |
+| Secure Email | id-kp-emailProtection (1.3.6.1.5.5.7.3.4) | S/MIME BR |
+| Legacy S/MIME | id-kp-emailProtection (1.3.6.1.5.5.7.3.4)<br>id-kp-clientAuth (1.3.6.1.5.5.7.3.2) | S/MIME BR |
+| Client Authentication | id-kp-clientAuth (1.3.6.1.5.5.7.3.2) | CA-defined (subject to Apple approval) |
+| Time Stamping | id-kp-timeStamping (1.3.6.1.5.5.7.3.8) | RFC 3161 and CA-defined (subject to Apple approval) |
+| VMC | id-kp-BrandIndicatorforMessageIdentification (1.3.6.1.5.5.7.3.31) | VMC Requirements |
+
+**Baseline Requirements Definitions:**
+
+* **TLS BR**: CA/Browser Forum Baseline Requirements for the Issuance and Management of Publicly-Trusted TLS Server Certificates
+* **EV Guidelines**: CA/Browser Forum Guidelines for the Issuance and Management of Extended Validation Certificates
+* **S/MIME BR**: CA/Browser Forum Baseline Requirements for the Issuance and Management of Publicly-Trusted S/MIME Certificates
+* **VMC Requirements**: AuthIndicator Working Group Minimum Security Requirements for Issuance of Mark Certificates
+
+**Additional Notes:**
+
+* For all Trust Purposes, Subordinate CA Certificates (including Cross-Signed CA Certificates) signed after 2026-07-01 MUST contain only the EKU(s) specified for that Trust Purpose.
+* For all other Trust Purposes, subscriber (end-entity) certificates MUST contain one or more of the EKU(s) specified for that Trust Purpose.
+* For "Legacy S/MIME," the id-kp-clientAuth EKU MUST be used only for S/MIME-related client authentication as permitted by the S/MIME Baseline Requirements.
+* Root CA Certificates included before this policy version that support multiple Trust Purposes MAY continue operating under existing configurations, except where explicitly mentioned in this policy.
+Apple reserves the right to require transition to single-purpose operation.
+* For the "Legacy TLS" and "Legacy S/MIME" Trust Purposes, a single CP/CPS governs the issuance of subscriber certificates containing either the base EKU alone (`id-kp-serverAuth` or `id-kp-emailProtection`, respectively) or the combination of the base EKU and `id-kp-clientAuth`. Certificates containing only `id-kp-clientAuth` are not permitted under these Trust Purposes and MUST be issued under a CP/CPS scoped to the "Client Authentication" Trust Purpose.
+* Any certificate containing one or more EKUs listed in the Trust Purposes table is considered to be issued exclusively for the corresponding Trust Purpose(s) and must adhere to the Baseline Requirements specified for that purpose in the table.
+* Subscriber certificates signed before 2027-07-01 MAY contain EKU combinations that do not conform to the single Trust Purpose scoping defined in this Appendix, provided the certificate otherwise complies with all applicable Baseline Requirements.
+* Subordinate CA certificates signed before 2026-07-01 MAY be multi-purpose. Subscriber certificates issued from them MAY contain EKUs not defined in this Appendix, provided such use cases are covered by a compliant audit against an established industry standard and those details are documented within a corresponding CP/CPS.
