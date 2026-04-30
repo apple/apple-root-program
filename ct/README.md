@@ -20,7 +20,7 @@ Certificate Transparency (CT) on Apple platforms.
 ## Contact
 
 For questions about Certificate Transparency on Apple platforms, please
-contact [certificate-authority-program@apple.com](mailto:certificate-authority-program@apple.com).
+contact [certificate-transparency-program@group.apple.com](mailto:certificate-transparency-program@group.apple.com).
 
 ## License
 
