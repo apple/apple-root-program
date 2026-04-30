@@ -1,10 +1,10 @@
-# Certificate Transparency
+# Certificate Transparency Program
 
-This directory contains policy documentation and resources related to
+Th Apple Certificate Transparency Program contains policy documentation and resources related to
 Certificate Transparency (CT) on Apple platforms.
 
-> **Note:** Certificate Transparency is not part of the Apple Root
-> Program. This directory is maintained here for convenience.
+> **Note:** The Apple Certificate Transparency Program is not part of the Apple Root
+> Program. This directory is maintained within the apple-root-program repository for convenience.
 
 ## Policy Documentation
 
