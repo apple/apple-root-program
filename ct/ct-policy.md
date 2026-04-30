@@ -4,13 +4,6 @@
 
 **Published: April 21, 2025**
 
-> Note: Version 1.0 is a Markdown conversion of the policy as published at
-> [https://support.apple.com/en-us/103214](https://support.apple.com/en-us/103214) on April 21, 2025.
-> No substantive changes have been made. This file serves as the source-of-record baseline
-> prior to the introduction of versioning.
-
----
-
 Publicly trusted Transport Layer Security (TLS) server authentication certificates must meet
 Apple's Certificate Transparency (CT) policy to be evaluated as trusted on Apple platforms.
 
