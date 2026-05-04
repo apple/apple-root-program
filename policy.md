@@ -242,7 +242,8 @@ Incorporation by reference is permitted to cite the source of a requirement, but
    * The Trust Purpose and required EKU(s) MUST be stated in Section 1.4 of the CP/CPS.
    * A Root CA Certificate hierarchy supporting multiple Trust Purposes MUST provide a distinct CP/CPS document for each Trust Purpose.
    * Multiple Root CA Certificate hierarchies MAY reference the same CP/CPS document if they share the same Trust Purpose.
-   * For certificates/hierarchies that do not align to an Apple-recognized Trust Purpose, at least one CP/CPS is required to cover each or all of those purposes.
+   * Appendix A permits certain certificates and hierarchies (for example, subordinate CA certificates signed before 2026-07-01) that do not align to an Apple-recognized Trust Purpose; these still
+  require at least one CP/CPS covering the use case(s).
 
 ### 1.4 Communication Requirements
 
