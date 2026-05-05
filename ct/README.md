@@ -1,6 +1,6 @@
 # Certificate Transparency Program
 
-Th Apple Certificate Transparency Program contains policy documentation and resources related to
+The Apple Certificate Transparency Program contains policy documentation and resources related to
 Certificate Transparency (CT) on Apple platforms.
 
 > **Note:** The Apple Certificate Transparency Program is not part of the Apple Root
@@ -13,7 +13,7 @@ Certificate Transparency (CT) on Apple platforms.
 
 ## Key Resources
 
-- [Apple's Certificate Transparency Log Program](https://support.apple.com/103703)
+- [Apple's Certificate Transparency Log Program](ct-log-program.md)
 - [Current CT Log List (JSON)](https://valid.apple.com/ct/log-list/current_log_list.json)
 - [CT Log List Schema (JSON)](https://valid.apple.com/ct/log-list/log_list_schema.json)
 
