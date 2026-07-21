@@ -28,7 +28,7 @@ General PKI,Key management,Does the CA Owner maintain sole control over all CA k
 General PKI,Key management,Does the CA Owner generate and store CA private keys in FIPS 140-2 (or 140-3) Level 3 or higher certified hardware operating in a Level 3 or higher compliant mode?,
 General PKI,Root lifecycle & agility,Does the CA Owner intend to sign replacement Root CA Certificates at least 2 years before current Root expiration and submit them to the Apple Root Program at least 18 months before production use?,
 General PKI,Root lifecycle & agility,"Does the CA Owner maintain a documented process to transition to replacement signature, hash, or key-establishment algorithms when a cryptographic algorithm in use is found to be weakened or broken?",
-General PKI,Root lifecycle & agility,"By 2030-12-31, will every Root CA hierarchy the CA Owner has in the Apple Root Program serve only one Trust Purpose? The CA Owner may reach this by retiring or replacing any hierarchy that serves more than one today.",
+General PKI,Root lifecycle & agility,"By 2029-12-31, will every Root CA hierarchy the CA Owner has in the Apple Root Program serve only one Trust Purpose? The CA Owner may reach this by retiring or replacing any hierarchy that serves more than one today.",
 General PKI,Root lifecycle & agility,"Does the CA Owner avoid placing any non-Apple Trust Purpose (such as Document Signing, IoT, or Time Stamping) on a Root CA hierarchy that also serves an Apple Trust Purpose?",
 General PKI,Root lifecycle & agility,Does the CA Owner intend to generate new Root CA certificates at least every 5 years?,
 General PKI,Root lifecycle & agility,Does the CA Owner migrate issuance from one Root CA generation to the next at least every 7 years?,
