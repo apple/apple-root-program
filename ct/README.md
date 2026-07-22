@@ -14,8 +14,8 @@ Certificate Transparency (CT) on Apple platforms.
 ## Key Resources
 
 - [Apple's Certificate Transparency Log Program](ct-log-program.md)
-- [Current CT Log List (JSON)](https://valid.apple.com/ct/log-list/current_log_list.json)
-- [CT Log List Schema (JSON)](https://valid.apple.com/ct/log-list/log_list_schema.json)
+- [Current CT Log List (JSON)](https://valid.apple.com/ct/log_list/current_log_list.json)
+- [CT Log List Schema (JSON)](https://valid.apple.com/ct/log_list/schema_versions/log_list_schema_v5.json)
 
 ## Contact
 
