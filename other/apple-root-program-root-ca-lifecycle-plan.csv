@@ -1,0 +1,6 @@
+RootCACertificateName,SHA256Fingerprint,AppleTrustPurposes,LifecycleIntent,SuccessorSHA256,RetirementTimeline,NewRootJustification,Notes
+Example TLS Root CA G2,AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,Server Authentication,active,N/A,N/A,N/A,Currently serving production TLS issuance
+Example TLS Root CA G1,BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB,Server Authentication,retirement committed,AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,2028-06-30,N/A,Successor already included; migrating subscribers
+Example S/MIME Root CA G1,CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC,Secure Email,replacement planned,N/A,SuccessorIncluded + 180d,N/A,Backstop: 2031-12-31 if successor not included by then
+Example TLS Root CA G3,DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD,Server Authentication,net-new,N/A,N/A,Dedicated single-purpose Server Authentication root for new issuance platform.,N/A
+Example VMC Root CA G1,EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE,VMC,retirement committed,AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,SuccessorIncluded + 365d,N/A,365d allows relying parties to transition to successor-issued VMCs
