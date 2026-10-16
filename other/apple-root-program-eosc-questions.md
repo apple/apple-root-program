@@ -1,13 +1,14 @@
 # Externally Operated Subordinate CA: information Apple needs
 
-Complete `apple-root-program-eosc-questions.csv` when you need Apple approval to issue a Subordinate CA Certificate, or to cross-sign a CA Certificate, that will be operated by a legal entity distinct from the owner of the issuing parent CA. Section 1.4 of the [Apple Root Program Policy](https://github.com/apple/apple-root-program) requires approval before each such certificate is issued.
+Complete `apple-root-program-eosc-questions.csv` when you need Apple approval to issue a Subordinate CA Certificate, or to cross-sign a CA Certificate, that will be operated by a legal entity distinct from the CA Owner of the issuing parent CA Certificate. Section 1.4 of the [Apple Root Program Policy](https://github.com/apple/apple-root-program) requires approval before each such certificate is issued.
 
 ## What to do
 
-1. Answer in the `Answer` column, keeping to the shape given in `Answer format`.
-2. Answer every `required` row. For a `conditional` row, read `Required when`; if it does not apply, write `Not applicable` rather than leaving the cell blank.
-3. If you are requesting more than one certificate, copy the Certificate Details block as described below.
-4. Return the file as a reply on your email thread with certificate-authority-program@apple.com. If you have not opened a thread, send it there.
+1. Leave the `About this form` / `Version` row exactly as you received it. Apple reads it to know which version of this form you answered.
+2. Answer in the `Answer` column, keeping to the shape given in `Answer format`.
+3. Answer every `required` row. For a `conditional` row, read `Required when`; if it does not apply to your request, write `Not applicable`. Never leave a cell blank: Apple cannot tell a blank cell from a question you have not reached yet.
+4. If you are requesting more than one certificate, copy the Certificate Details block as described below.
+5. Return the file as a reply on your email thread with certificate-authority-program@apple.com. If you have not opened a thread, send it there.
 
 Apple begins review once every required answer is on file. Until then the request waits.
 
@@ -15,7 +16,7 @@ Apple begins review once every required answer is on file. Until then the reques
 
 | Column | Meaning |
 | --- | --- |
-| `Section` | Question group. `Cross-Sign Additionals` applies only to a cross-sign. |
+| `Section` | Question group. `About this form` is not a question and is left as received. `Cross-Sign Additionals` applies only to a cross-sign. |
 | `Certificate` | Which certificate the row is about. `N/A` means the whole submission. |
 | `Topic` | Groups related questions. |
 | `Question` | The question. |
