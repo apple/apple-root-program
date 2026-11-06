@@ -1,8 +1,8 @@
 # Apple's Certificate Transparency Policy
 
-**Version 1.0**
+**Version 1.1**
 
-**Published: April 21, 2025**
+**Published: November 5, 2026**
 
 Publicly trusted Transport Layer Security (TLS) server authentication certificates must meet
 Apple's Certificate Transparency (CT) policy to be evaluated as trusted on Apple platforms.
@@ -20,8 +20,6 @@ Apple's policy requires at least two Signed Certificate Timestamps (SCT) issued 
 - At least one embedded SCT from a currently approved log and at least the number of SCTs from
   once or currently approved logs, based on validity period as detailed in the table below.
 
-At least one SCT must be issued from a log compliant with RFC 6962.
-
 **The number of embedded SCTs required is based on certificate lifetime[^2]:**
 
 | Certificate Lifetime | # of SCTs from Distinct Logs | Maximum # of SCTs per Log Operator Counting Toward SCT Requirement |
@@ -31,11 +29,11 @@ At least one SCT must be issued from a log compliant with RFC 6962.
 
 ## CT Logs
 
-Download the current [CT Log list](https://valid.apple.com/ct/log-list/current_log_list.json)
-and [CT Log list schema](https://valid.apple.com/ct/log-list/log_list_schema.json) in JSON format.
+Download the current [CT Log list](https://valid.apple.com/ct/log_list/current_log_list.json)
+and [CT Log list schema](https://valid.apple.com/ct/log_list/current_log_list_schema.json) in JSON format.
 
 For CT log status definitions, please refer to
-[Apple's Certificate Transparency log program](https://support.apple.com/103703).
+[Apple's Certificate Transparency log program](https://github.com/apple/apple-root-program/blob/main/ct/ct-log-program.md).
 
 ---
 
