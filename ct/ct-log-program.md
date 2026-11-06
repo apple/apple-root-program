@@ -1,5 +1,9 @@
 # Apple's Certificate Transparency Log Program
 
+**Version 1.1**
+
+**Published: November 5, 2026**
+
 The goal of Apple's Certificate Transparency log program is to establish a set
 of Certificate Transparency (CT) logs that are trusted on Apple's platforms to
 provide Signed Certificate Timestamps (SCTs) for publicly trusted TLS server
@@ -28,10 +32,12 @@ A log conforming with RFC 6962 may:
 - Reject revoked certificates.
 - Reject leaf certificates which don't contain the id-kp-serverAuth Extended
   Key Usage (EKU).
+- Disable the add-chain endpoint (RFC 6962, Section 4.1).
 
 Log operators must provide a minimum of 45 days' advance written notice to
 <certificate-transparency-program@group.apple.com> of any changes to the
-type(s) of leaf certificate(s) their log(s) accepts.
+type(s) of leaf certificate(s) their log(s) accepts. No notice is needed to
+disable or enable the add-chain endpoint.
 
 ### Static CT API
 
@@ -39,7 +45,7 @@ To be considered for inclusion in Apple's Certificate Transparency log program,
 a log conforming with the
 [static-ct-api](https://c2sp.org/static-ct-api) C2SP specification must:
 
-- Implement CT as specified by The Static Certificate Transparency API, v1.0.0.
+- Implement CT as specified by The Static Certificate Transparency API, v1.1.0.
 - Not present two or more conflicting views of the Merkle Tree at different
   times and/or to different parties.
 - Meet Apple's uptime requirement of 99%, as measured by Apple.
